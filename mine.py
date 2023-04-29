@@ -256,4 +256,13 @@ def welcome_msg():
         Make sure you are using the latest version or you may end in
         a parallel chain.\n\n\n""")
 
+if __name__ == '__main__':
+    welcome_msg()
+    # Start mining
+    pipe_output, pipe_input = Pipe()
+    miner_process = Process(target=mine, args=(pipe_output, BLOCKCHAIN, NODE_PENDING_TRANSACTIONS))
+    miner_process.start()
 
+    # Start server to receive transactions
+    transactions_process = Process(target=node.run(), args=pipe_input)
+    transactions_process.start()
