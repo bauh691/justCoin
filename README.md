@@ -1,0 +1,2 @@
+# justCoin
+wallet of cryptocoin
